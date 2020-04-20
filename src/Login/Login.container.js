@@ -11,7 +11,7 @@ const EnhanceLogin = props => {
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [styleProgressBar, setStyleProgressBar] = useState({});
     let [styleError, setStyleError] = useState("");
-    const history = useHistory();
+
 
 
     const formHandler = e => {
