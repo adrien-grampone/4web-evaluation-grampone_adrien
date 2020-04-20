@@ -20,6 +20,7 @@ margin:35px auto;
 font-family: 'Raleway', sans-serif;
 }
 div.main{
+  text-align: center;
 width: 300px;
 padding: 10px 50px 25px;
 border: 2px solid gray;
@@ -49,7 +50,7 @@ center{
 font-size:32px;
 }
 .note{
-color:red;
+color:white;
 }
 .valid{
 color:green;
@@ -89,7 +90,5 @@ background: linear-gradient(#ffdd7f 5%, #ffbc00 100%);
   #myBar {
     width: 1%;
     height: 30px;
-    background-color: rgb(255, 0, 0);
+    background-color: white;
   }
-
-  
