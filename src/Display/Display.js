@@ -22,7 +22,7 @@ class Display extends React.Component {
         window.onload = function () {
             var str = window.location.href;
             var url = new URL(str);
-            let page = url.searchParams.get("page");
+            let page = url.searchParams.get("pag");
 
             if (page == 2 || page == 1) {
                 document.getElementById('prec2').style.display = "none";
