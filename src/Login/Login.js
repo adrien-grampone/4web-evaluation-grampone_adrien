@@ -1,16 +1,17 @@
 import React from 'react';
-import Header from "../layout/Header/Header"
 
 
-const subtitle = "Login"
+
+
+
 
 
 
 const Login = ({ email, setEmail, password, setPassword, formHandler, styleError }) => (
     <>
-        <Header subtitle={subtitle} />
+
         <div class="container">
-            <div class="main">
+            <div class="form">
 
                 <form id="form_id" method="post" name="myform" onSubmit={formHandler} >
                     <label for="username">E-mail :</label>

@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from "./layout/Header/Header.js";
 import "./layout/Header/Header.css"
 import Login from './Login/Login.container.js';
 import Display from './Display/Display';

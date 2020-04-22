@@ -329,7 +329,7 @@ class Display extends React.Component {
 
                         {this.enTeteTab()}
 
-                        {DisplayData.reverse().slice(this.extractParamsUrl(window.location.href), 109).filter(function (data) { return data.region_code === filtre }).map((displayDetail, index) => {
+                        {DisplayData.reverse().slice(this.extractParamsUrl(window.location.href), 109).filter(function (data) { return data.region_code.indexOf(filtre.toUpperCase()) != -1 }).map((displayDetail, index) => {
 
                             return this.affichData(displayDetail)
 
@@ -350,7 +350,7 @@ class Display extends React.Component {
 
                         {this.enTeteTab()}
 
-                        {DisplayData.reverse().slice(this.extractParamsUrl(window.location.href), 109).filter(function (data) { return data.region_code === filtre }).filter(function (dat) { return dat.name.indexOf(filtreR) == 0 }).map((displayDetail, index) => {
+                        {DisplayData.reverse().slice(this.extractParamsUrl(window.location.href), 109).filter(function (data) { return data.region_code.indexOf(filtre.toUpperCase()) != -1 }).filter(function (dat) { return dat.name.indexOf(filtreR) == 0 }).map((displayDetail, index) => {
 
                             return this.affichData(displayDetail)
 
@@ -413,7 +413,7 @@ class Display extends React.Component {
 
                         {this.enTeteTab()}
 
-                        {DisplayData.slice(this.extractParamsUrl(window.location.href), 109).filter(function (data) { return data.region_code === filtre }).map((displayDetail, index) => {
+                        {DisplayData.slice(this.extractParamsUrl(window.location.href), 109).filter(function (data) { return data.region_code.indexOf(filtre.toUpperCase()) != -1 }).map((displayDetail, index) => {
 
                             return this.affichData(displayDetail)
 
@@ -433,7 +433,7 @@ class Display extends React.Component {
 
                         {this.enTeteTab()}
 
-                        {DisplayData.slice(this.extractParamsUrl(window.location.href), 109).filter(function (data) { return data.region_code === filtre }).filter(function (dat) { return dat.name.indexOf(filtreR) == 0 }).map((displayDetail, index) => {
+                        {DisplayData.slice(this.extractParamsUrl(window.location.href), 109).filter(function (data) { return data.region_code.indexOf(filtre.toUpperCase()) != -1 }).filter(function (dat) { return dat.name.indexOf(filtreR) == 0 }).map((displayDetail, index) => {
 
                             return this.affichData(displayDetail)
 
@@ -462,8 +462,9 @@ class Display extends React.Component {
                         })}
 
                         <br></br>
-                        {this.affichNPage()}
 
+
+                        {this.affichNPage()}
                         {this.desacLien()}
 
                     </div >
