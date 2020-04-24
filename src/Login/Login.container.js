@@ -6,8 +6,8 @@ import Login from "./Login";
 
 
 const EnhanceLogin = props => {
-    const [email, setEmail] = useState("contact@web.fr");
-    const [password, setPassword] = useState("azerty");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [passwordStrength, setPasswordStrength] = useState(0);
     const [styleProgressBar, setStyleProgressBar] = useState({});
     let [styleError, setStyleError] = useState("");

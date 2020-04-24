@@ -11,7 +11,7 @@ const App = () => {
     <div className="App">
 
       <Router>
-        <Link to="/login">Login </Link>
+        <Link to="/login">Merci de cliquer ici pour vous connecter </Link>
 
 
 

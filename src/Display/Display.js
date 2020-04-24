@@ -5,7 +5,7 @@ import DisplayData from '../Data/departments.json'
 class Display extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { value: this.extractParamsUrl3(window.location.href) };
+        this.state = { value: this.extractParamsUrlLines(window.location.href) };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,11 +37,11 @@ class Display extends React.Component {
                 document.getElementById('prec2').style.display = "none";
 
             }
-            if (page == 22 && l == 5 || page == 11 && l == 10 || page == 6 && l == 20 || page == 3 && l == 50) {
+            if (page == 22 && l == 5 || page >= 11 && l == 10 || page >= 6 && l == 20 || page >= 3 && l == 50) {
                 document.getElementById('suiv2').style.display = "none";
                 document.getElementById('suiv1').style.display = "none";
             }
-            if (page == 21 && l == 5 || page == 10 && l == 10 || page == 5 && l == 20 || page == 2 && l == 50) {
+            if (page == 21 && l == 5 || page >= 10 && l == 10 || page >= 5 && l == 20 || page >= 2 && l == 50) {
                 document.getElementById('suiv2').style.display = "none";
 
             }
@@ -51,11 +51,11 @@ class Display extends React.Component {
     handleChange(event) {
         // this.setState({ value: event.target.value });
         if (event.target.value == 109) {
-            document.location.href = "/display?d=0&page=1&l=" + event.target.value + "&s=" + this.extractParamsUrlS(window.location.href);
+            document.location.href = "/display?d=0&page=1&l=" + event.target.value + "&s=" + this.extractParamsUrlSens(window.location.href);
 
         }
         else {
-            document.location.href = "/display?d=" + this.extractParamsUrl(window.location.href) + "&page=" + this.extractParamsUrl2(window.location.href) + "&l=" + event.target.value + "&s=" + this.extractParamsUrlS(window.location.href);
+            document.location.href = "/display?d=" + this.extractParamsUrlLastId(window.location.href) + "&page=" + this.extractParamsUrlPage(window.location.href) + "&l=" + event.target.value + "&s=" + this.extractParamsUrlSens(window.location.href);
 
         }
 
@@ -68,22 +68,22 @@ class Display extends React.Component {
 
     textChange() {
 
-        document.location.href = "display?d=" + this.extractParamsUrl(window.location.href) + "&page=" + this.extractParamsUrl2(window.location.href) + "&l=" + this.extractParamsUrl3(window.location.href) + "&s=" + this.extractParamsUrlS(window.location.href) + "&f=" + document.getElementById('id').value;
+        document.location.href = "display?d=" + this.extractParamsUrlLastId(window.location.href) + "&page=" + this.extractParamsUrlPage(window.location.href) + "&l=" + this.extractParamsUrlLines(window.location.href) + "&s=" + this.extractParamsUrlSens(window.location.href) + "&f=" + document.getElementById('id').value;
     }
 
-    extractParamsUrl(chaineGET) {
+    extractParamsUrlLastId(chaineGET) {
         var str = chaineGET;
         var url = new URL(str);
         let d = url.searchParams.get("d");
         return d;
     }
-    extractParamsUrl2(chaineGET) {
+    extractParamsUrlPage(chaineGET) {
         var str = chaineGET;
         var url = new URL(str);
         let page = url.searchParams.get("page");
         return page;
     }
-    extractParamsUrl3(chaineGET) {
+    extractParamsUrlLines(chaineGET) {
         var str = chaineGET;
         var url = new URL(str);
         let l = url.searchParams.get("l");
@@ -103,7 +103,7 @@ class Display extends React.Component {
         return sens;
     }
 
-    extractParamsUrlS(chaineGET) {
+    extractParamsUrlSens(chaineGET) {
         var str = chaineGET;
         var url = new URL(str);
         let s = url.searchParams.get("s");
@@ -149,15 +149,33 @@ class Display extends React.Component {
     }
 
     affichNPage() {
-        { document.write('<span id="prec2" class="pagination" ><a href="/display?d=' + this.soustraction(this.soustraction(parseInt(this.extractParamsUrl(window.location.href)), parseInt(this.extractParamsUrl3(window.location.href))), parseInt(this.extractParamsUrl3(window.location.href))) + '&page=' + (parseInt(this.extractParamsUrl2(window.location.href)) - 2) + '&l=' + parseInt(this.extractParamsUrl3(window.location.href)) + '&s=' + this.extractParamsUrlS(window.location.href) + '"> &laquo;&laquo;</a></span>') }
-        { document.write('<span id="prec1" class="pagination"><a href="/display?d=' + this.soustraction(parseInt(this.extractParamsUrl(window.location.href)), parseInt(this.extractParamsUrl3(window.location.href))) + '&page=' + (parseInt(this.extractParamsUrl2(window.location.href)) - 1) + '&l=' + parseInt(this.extractParamsUrl3(window.location.href)) + '&s=' + this.extractParamsUrlS(window.location.href) + '">&laquo;</a></span>') }
-        { document.write('<span id="un" class="pagination"><a href="/display?d=0&page=1&l=' + parseInt(this.extractParamsUrl3(window.location.href)) + '&s=' + this.extractParamsUrlS(window.location.href) + '">1</a></span>') }
-        { document.write('<span id="deux" class="pagination"><a href="/display?d=' + parseInt(this.extractParamsUrl3(window.location.href)) + '&page=2&l=' + parseInt(this.extractParamsUrl3(window.location.href)) + '&s=' + this.extractParamsUrlS(window.location.href) + '">2</a></span>') }
-        { document.write('<span id="trois" class="pagination"><a href="/display?d=' + parseInt(this.extractParamsUrl3(window.location.href)) * 2 + '&page=3&l=' + parseInt(this.extractParamsUrl3(window.location.href)) + '&s=' + this.extractParamsUrlS(window.location.href) + '">3</a></span>') }
-        { document.write('<span id="suiv1" class="pagination"><a href="/display?d=' + this.addition(parseInt(this.extractParamsUrl3(window.location.href)), parseInt(this.extractParamsUrl(window.location.href))) + '&page=' + this.addition(parseInt(this.extractParamsUrl2(window.location.href)), 1) + '&l=' + parseInt(this.extractParamsUrl3(window.location.href)) + '&s=' + this.extractParamsUrlS(window.location.href) + '">&raquo;</a></span>') }
-        { document.write('<span id="suiv2" class="pagination"><a href="/display?d=' + this.addition((parseInt(this.extractParamsUrl3(window.location.href)) * 2), parseInt(this.extractParamsUrl(window.location.href))) + '&page=' + this.addition(parseInt(this.extractParamsUrl2(window.location.href)), 2) + '&l=' + parseInt(this.extractParamsUrl3(window.location.href)) + '&s=' + this.extractParamsUrlS(window.location.href) + '">&raquo;&raquo;</a></span>') }
+        { document.write('<span id="prec2" class="pagination" ><a href="/display?d=' + this.soustraction(this.soustraction(parseInt(this.extractParamsUrlLastId(window.location.href)), parseInt(this.extractParamsUrlLines(window.location.href))), parseInt(this.extractParamsUrlLines(window.location.href))) + '&page=' + (parseInt(this.extractParamsUrlPage(window.location.href)) - 2) + '&l=' + parseInt(this.extractParamsUrlLines(window.location.href)) + '&s=' + this.extractParamsUrlSens(window.location.href) + '"> &laquo;&laquo;</a></span>') }
+        { document.write('<span id="prec1" class="pagination"><a href="/display?d=' + this.soustraction(parseInt(this.extractParamsUrlLastId(window.location.href)), parseInt(this.extractParamsUrlLines(window.location.href))) + '&page=' + (parseInt(this.extractParamsUrlPage(window.location.href)) - 1) + '&l=' + parseInt(this.extractParamsUrlLines(window.location.href)) + '&s=' + this.extractParamsUrlSens(window.location.href) + '">&laquo;</a></span>') }
+        { document.write('<span id="un" class="pagination"><a href="/display?d=0&page=1&l=' + parseInt(this.extractParamsUrlLines(window.location.href)) + '&s=' + this.extractParamsUrlSens(window.location.href) + '">1</a></span>') }
+        { document.write('<span id="deux" class="pagination"><a href="/display?d=' + parseInt(this.extractParamsUrlLines(window.location.href)) + '&page=2&l=' + parseInt(this.extractParamsUrlLines(window.location.href)) + '&s=' + this.extractParamsUrlSens(window.location.href) + '">2</a></span>') }
+        { document.write('<span id="trois" class="pagination"><a href="/display?d=' + parseInt(this.extractParamsUrlLines(window.location.href)) * 2 + '&page=3&l=' + parseInt(this.extractParamsUrlLines(window.location.href)) + '&s=' + this.extractParamsUrlSens(window.location.href) + '">3</a></span>') }
+        { document.write('<span id="suiv1" class="pagination"><a href="/display?d=' + this.addition(parseInt(this.extractParamsUrlLines(window.location.href)), parseInt(this.extractParamsUrlLastId(window.location.href))) + '&page=' + this.addition(parseInt(this.extractParamsUrlPage(window.location.href)), 1) + '&l=' + parseInt(this.extractParamsUrlLines(window.location.href)) + '&s=' + this.extractParamsUrlSens(window.location.href) + '">&raquo;</a></span>') }
+        { document.write('<span id="suiv2" class="pagination"><a href="/display?d=' + this.addition((parseInt(this.extractParamsUrlLines(window.location.href)) * 2), parseInt(this.extractParamsUrlLastId(window.location.href))) + '&page=' + this.addition(parseInt(this.extractParamsUrlPage(window.location.href)), 2) + '&l=' + parseInt(this.extractParamsUrlLines(window.location.href)) + '&s=' + this.extractParamsUrlSens(window.location.href) + '">&raquo;&raquo;</a></span>') }
+        if (this.extractParamsUrlLines(window.location.href) == 5) {
+            { document.write('<span id="last" class="pagination"><a href="/display?d=105&page=22&l=5&s=' + this.extractParamsUrlSens(window.location.href) + '">22</a></span>') }
+
+        }
+        else if (this.extractParamsUrlLines(window.location.href) == 10) {
+            { document.write('<span id="last" class="pagination"><a href="/display?d=100&page=11&l=10&s=' + this.extractParamsUrlSens(window.location.href) + '">11</a></span>') }
+
+        }
+        else if (this.extractParamsUrlLines(window.location.href) == 20) {
+            { document.write('<span id="last" class="pagination"><a href="/display?d=100&page=6&l=20&s=' + this.extractParamsUrlSens(window.location.href) + '">6</a></span>') }
+
+        }
 
     }
+
+    affichRetour() {
+        { document.write('<span id="retour" class="pagination" ><a href="/display?d=0&page=1&l=5&s=b"> Menu principal </a></span>') }
+
+    }
+
 
     extractParamsUrlRadio(chaineGET) {
         var str = chaineGET;
@@ -187,11 +205,11 @@ class Display extends React.Component {
 
         if (document.getElementById('Saint').checked == true) {
 
-            document.location.href = "display?d=" + this.extractParamsUrl(window.location.href) + "&page=" + this.extractParamsUrl2(window.location.href) + "&l=" + this.extractParamsUrl3(window.location.href) + "&s=" + this.extractParamsUrlS(window.location.href) + "&f=" + this.extractParamsUrlFiltre(window.location.href) + "&r=" + document.getElementById('Saint').value;
+            document.location.href = "display?d=" + this.extractParamsUrlLastId(window.location.href) + "&page=" + this.extractParamsUrlPage(window.location.href) + "&l=" + this.extractParamsUrlLines(window.location.href) + "&s=" + this.extractParamsUrlSens(window.location.href) + "&f=" + this.extractParamsUrlFiltre(window.location.href) + "&r=" + document.getElementById('Saint').value;
         }
         else if (document.getElementById('Haut').checked == true) {
 
-            document.location.href = "display?d=" + this.extractParamsUrl(window.location.href) + "&page=" + this.extractParamsUrl2(window.location.href) + "&l=" + this.extractParamsUrl3(window.location.href) + "&s=" + this.extractParamsUrlS(window.location.href) + "&f=" + this.extractParamsUrlFiltre(window.location.href) + "&r=" + document.getElementById('Haut').value;
+            document.location.href = "display?d=" + this.extractParamsUrlLastId(window.location.href) + "&page=" + this.extractParamsUrlPage(window.location.href) + "&l=" + this.extractParamsUrlLines(window.location.href) + "&s=" + this.extractParamsUrlSens(window.location.href) + "&f=" + this.extractParamsUrlFiltre(window.location.href) + "&r=" + document.getElementById('Haut').value;
         }
     }
     verifRSaint() {
@@ -231,20 +249,20 @@ class Display extends React.Component {
             if (document.getElementById("sens").innerHTML === "↑") {
 
                 document.getElementById("sens").innerHTML = "&darr;";
-                document.location.href = "/display?d=" + this.extractParamsUrl(window.location.href) + "&page=" + this.extractParamsUrl2(window.location.href) + "&l=" + this.extractParamsUrl3(window.location.href) + "&s=b&f=" + f;
+                document.location.href = "/display?d=" + this.extractParamsUrlLastId(window.location.href) + "&page=" + this.extractParamsUrlPage(window.location.href) + "&l=" + this.extractParamsUrlLines(window.location.href) + "&s=b&f=" + f;
             }
 
             else if (document.getElementById("sens").innerHTML === "↓") {
 
                 document.getElementById("sens").innerHTML = "&uarr;"
-                document.location.href = "/display?d=" + this.extractParamsUrl(window.location.href) + "&page=" + this.extractParamsUrl2(window.location.href) + "&l=" + this.extractParamsUrl3(window.location.href) + "&s=h&f=" + f;
+                document.location.href = "/display?d=" + this.extractParamsUrlLastId(window.location.href) + "&page=" + this.extractParamsUrlPage(window.location.href) + "&l=" + this.extractParamsUrlLines(window.location.href) + "&s=h&f=" + f;
             }
         }
         else {
             if (document.getElementById("sens").innerHTML === "↑") {
 
                 document.getElementById("sens").innerHTML = "&darr;";
-                document.location.href = "/display?d=" + this.extractParamsUrl(window.location.href) + "&page=" + this.extractParamsUrl2(window.location.href) + "&l=" + this.extractParamsUrl3(window.location.href) + "&s=b";
+                document.location.href = "/display?d=" + this.extractParamsUrlLastId(window.location.href) + "&page=" + this.extractParamsUrlPage(window.location.href) + "&l=" + this.extractParamsUrlLines(window.location.href) + "&s=b";
 
 
             }
@@ -252,7 +270,7 @@ class Display extends React.Component {
             else if (document.getElementById("sens").innerHTML === "↓") {
 
                 document.getElementById("sens").innerHTML = "&uarr;"
-                document.location.href = "/display?d=" + this.extractParamsUrl(window.location.href) + "&page=" + this.extractParamsUrl2(window.location.href) + "&l=" + this.extractParamsUrl3(window.location.href) + "&s=h";
+                document.location.href = "/display?d=" + this.extractParamsUrlLastId(window.location.href) + "&page=" + this.extractParamsUrlPage(window.location.href) + "&l=" + this.extractParamsUrlLines(window.location.href) + "&s=h";
 
             }
         }
@@ -265,9 +283,35 @@ class Display extends React.Component {
                     {this.paramSens(window.location.href)}
                 </button>
                 </th>
-                <input type="textarea" placeholder="Exemple : COM" id="id" name="test"></input><button id="filtre" onClick={() => this.textChange()}>
+                <input type="textarea" placeholder="Exemple : COM ou 1" id="id" name="test"></input><button id="filtre" onClick={() => this.textChange()}>
                     Valider
             </button> <th>Code Region</th>
+                <th>Code</th>
+                <p>Filtrer </p>
+                <input type="checkbox" id="Saint" name="Saint" value="Saint" />
+                <label for="Saint">Saint</label>
+                <input type="checkbox" id="Haut" name="Haut" value="Haut" />
+                <label for="Haut">Haut</label>
+                <button id="f" onclick="ctr()" value="valider" onClick={() => this.filterRad()}>Valider</button> <th>Nom</th>
+                <th>Slug</th>
+            </tr>
+
+        </table>
+    }
+
+
+
+    enTeteTabAvecFiltre() {
+        return <table>
+            <tr>
+
+                <th>ID <button id="sens" onClick={() => this.handleClick()}>
+                    {this.paramSens(window.location.href)}
+                </button>
+                </th>
+                <input type="textarea" placeholder="Exemple : COM ou 1" id="id" name="test"></input><button id="filtre" onClick={() => this.textChange()}>
+                    Valider
+            </button> <th>Code Region (Recherche : "{this.extractParamsUrlFiltre(window.location.href)}")</th>
                 <th>Code</th>
                 <p>Filtrer </p>
                 <input type="checkbox" id="Saint" name="Saint" value="Saint" />
@@ -299,6 +343,7 @@ class Display extends React.Component {
     render() {
         var filtre = this.extractParamsUrlFiltre(window.location.href);
         var filtreR = this.extractParamsUrlRadio(window.location.href);
+
         if (this.paramSens(window.location.href) == "↑") {
 
             if (this.TestextractParamsUrlFiltre(window.location.href) == 1 && this.TestextractParamsUrlFiltreR(window.location.href) == 1) {
@@ -309,13 +354,14 @@ class Display extends React.Component {
 
                         {this.enTeteTab()}
 
-                        {DisplayData.reverse().slice(this.extractParamsUrl(window.location.href), parseInt(this.extractParamsUrl3(window.location.href)) + parseInt(this.extractParamsUrl(window.location.href))).map((displayDetail, index) => {
+                        {DisplayData.reverse().slice(this.extractParamsUrlLastId(window.location.href), parseInt(this.extractParamsUrlLines(window.location.href)) + parseInt(this.extractParamsUrlLastId(window.location.href))).map((displayDetail, index) => {
 
                             return this.affichData(displayDetail)
 
                         })}
                         <br></br>
                         {this.affichNPage()}
+
 
                         {this.desacLien()}
                     </div >
@@ -327,17 +373,17 @@ class Display extends React.Component {
                     < div >
                         {this.affichNbL()}
 
-                        {this.enTeteTab()}
+                        {this.enTeteTabAvecFiltre()}
 
-                        {DisplayData.reverse().slice(this.extractParamsUrl(window.location.href), 109).filter(function (data) { return data.region_code.indexOf(filtre.toUpperCase()) != -1 }).map((displayDetail, index) => {
+                        {DisplayData.reverse().slice(this.extractParamsUrlLastId(window.location.href), 109).filter(function (data) { return data.region_code.indexOf(filtre.toUpperCase()) != -1 }).map((displayDetail, index) => {
 
                             return this.affichData(displayDetail)
 
                         })}
                         <br></br>
-                        {this.affichNPage()}
+                        {this.affichRetour()}
 
-                        {this.desacLien()}
+
                     </div >
                 );
             }
@@ -348,17 +394,17 @@ class Display extends React.Component {
                     < div >
                         {this.affichNbL()}
 
-                        {this.enTeteTab()}
+                        {this.enTeteTabAvecFiltre()}
 
-                        {DisplayData.reverse().slice(this.extractParamsUrl(window.location.href), 109).filter(function (data) { return data.region_code.indexOf(filtre.toUpperCase()) != -1 }).filter(function (dat) { return dat.name.indexOf(filtreR) == 0 }).map((displayDetail, index) => {
+                        {DisplayData.reverse().slice(this.extractParamsUrlLastId(window.location.href), 109).filter(function (data) { return data.region_code.indexOf(filtre.toUpperCase()) != -1 }).filter(function (dat) { return dat.name.indexOf(filtreR) == 0 }).map((displayDetail, index) => {
 
                             return this.affichData(displayDetail)
 
                         })}
                         <br></br>
-                        {this.affichNPage()}
+                        {this.affichRetour()}
 
-                        {this.desacLien()}
+
                     </div >
                 );
             }
@@ -370,16 +416,16 @@ class Display extends React.Component {
 
                         {this.enTeteTab()}
 
-                        {DisplayData.reverse().slice(this.extractParamsUrl(window.location.href), 109).filter(function (dat) { return dat.name.indexOf(filtreR) == 0 }).map((displayDetail, index) => {
+                        {DisplayData.reverse().slice(this.extractParamsUrlLastId(window.location.href), 109).filter(function (dat) { return dat.name.indexOf(filtreR) == 0 }).map((displayDetail, index) => {
 
                             return this.affichData(displayDetail)
 
                         })}
 
                         <br></br>
-                        {this.affichNPage()}
+                        {this.affichRetour()}
 
-                        {this.desacLien()}
+
                     </div >
                 );
             }
@@ -393,7 +439,7 @@ class Display extends React.Component {
 
                         {this.enTeteTab()}
 
-                        {DisplayData.slice(this.extractParamsUrl(window.location.href), parseInt(this.extractParamsUrl3(window.location.href)) + parseInt(this.extractParamsUrl(window.location.href))).map((displayDetail, index) => {
+                        {DisplayData.slice(this.extractParamsUrlLastId(window.location.href), parseInt(this.extractParamsUrlLines(window.location.href)) + parseInt(this.extractParamsUrlLastId(window.location.href))).map((displayDetail, index) => {
 
                             return this.affichData(displayDetail)
 
@@ -411,17 +457,17 @@ class Display extends React.Component {
                     < div >
                         {this.affichNbL()}
 
-                        {this.enTeteTab()}
+                        {this.enTeteTabAvecFiltre()}
 
-                        {DisplayData.slice(this.extractParamsUrl(window.location.href), 109).filter(function (data) { return data.region_code.indexOf(filtre.toUpperCase()) != -1 }).map((displayDetail, index) => {
+                        {DisplayData.slice(this.extractParamsUrlLastId(window.location.href), 109).filter(function (data) { return data.region_code.indexOf(filtre.toUpperCase()) != -1 }).map((displayDetail, index) => {
 
                             return this.affichData(displayDetail)
 
                         })}
                         <br></br>
-                        {this.affichNPage()}
+                        {this.affichRetour()}
 
-                        {this.desacLien()}
+
                     </div >
                 );
             }
@@ -431,17 +477,17 @@ class Display extends React.Component {
 
                         {this.affichNbL()}
 
-                        {this.enTeteTab()}
+                        {this.enTeteTabAvecFiltre()}
 
-                        {DisplayData.slice(this.extractParamsUrl(window.location.href), 109).filter(function (data) { return data.region_code.indexOf(filtre.toUpperCase()) != -1 }).filter(function (dat) { return dat.name.indexOf(filtreR) == 0 }).map((displayDetail, index) => {
+                        {DisplayData.slice(this.extractParamsUrlLastId(window.location.href), 109).filter(function (data) { return data.region_code.indexOf(filtre.toUpperCase()) != -1 }).filter(function (dat) { return dat.name.indexOf(filtreR) == 0 }).map((displayDetail, index) => {
 
                             return this.affichData(displayDetail)
 
                         })}
                         <br></br>
-                        {this.affichNPage()}
+                        {this.affichRetour()}
 
-                        {this.desacLien()}
+
 
                     </div >
 
@@ -455,7 +501,7 @@ class Display extends React.Component {
 
                         {this.enTeteTab()}
 
-                        {DisplayData.slice(this.extractParamsUrl(window.location.href), 109).filter(function (dat) { return dat.name.indexOf(filtreR) == 0 }).map((displayDetail, index) => {
+                        {DisplayData.slice(this.extractParamsUrlLastId(window.location.href), 109).filter(function (dat) { return dat.name.indexOf(filtreR) == 0 }).map((displayDetail, index) => {
 
                             return this.affichData(displayDetail)
 
@@ -464,8 +510,8 @@ class Display extends React.Component {
                         <br></br>
 
 
-                        {this.affichNPage()}
-                        {this.desacLien()}
+                        {this.affichRetour()}
+
 
                     </div >
                 );
